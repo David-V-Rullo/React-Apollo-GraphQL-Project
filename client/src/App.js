@@ -1,14 +1,19 @@
 import './App.css';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from 'apollo'
-
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import Launches from './components/Launches';
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql'
+  uri: 'http://localhost:5000/graphql',
+  cache: new InMemoryCache(),
+  fetchOptions: {
+    mode: 'no-cors'
+  }
 })
 function App() {
   return (
     <ApolloProvider client={client}>
-    <div className="App">
+    <div className="container">
       <p>Space X Project</p>
+     <Launches></Launches>
     </div>
     </ApolloProvider>
   );
