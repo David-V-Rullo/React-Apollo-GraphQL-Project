@@ -1,4 +1,4 @@
-import { React, Fragment } from "react";
+import { React, useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
 import LaunchItem from "./LaunchItem";
 const LAUNCH_QUERY = gql`
@@ -11,18 +11,20 @@ const LAUNCH_QUERY = gql`
   }
 `;
 
-function Launches() {
-  const { loading, error, data } = useQuery(LAUNCH_QUERY)
-console.log(data.launches)
+const Launches = () => {
+const [launchData, setLaunchData] = useState({})
+const { loading, error, data } = useQuery(LAUNCH_QUERY)
+useEffect(() => {
+    setLaunchData(data)
+})
+console.log(launchData)
   return (
     <div>
       <p>Check the console dummy</p>
       <div>
-          {/* {
-              data.Launches.launches.map(launch => (
-                  <LaunchItem key={launch.flight_number} launch={launch} />
-              ))
-          } */}
+          {/* {launchData.map(function(launch){
+              return <LaunchItem key={launch.flight_number} data={launch} />
+          })} */}
       </div>
     </div>
   );
